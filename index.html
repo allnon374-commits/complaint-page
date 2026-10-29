@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم شكوى</title>
+    <!-- استدعاء خط Cairo المميز -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0d0f12;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 211, 102, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(18, 140, 126, 0.15) 0px, transparent 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #ffffff;
+        }
+
+        .card {
+            background: rgba(22, 27, 34, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(37, 211, 102, 0.4);
+            padding: 40px 32px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(37, 211, 102, 0.05);
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            font-size: 26px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #25D366 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #8b949e;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #c9d1d9;
+        }
+
+        input, textarea {
+            width: 100%;
+            background: rgba(13, 15, 18, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #484f58;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #25D366;
+            background: rgba(13, 15, 18, 0.9);
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.25);
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: 800;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
+        <h2>تقديم شكوى أو اقتراح</h2>
+        <p>اكتب بياناتك وسوف يتم توجيهها للواتساب فوراً</p>
+    </div>
+
+    <form id="complaintForm">
+        <div class="form-group">
+            <label for="name">الاسم الكامل</label>
+            <input type="text" id="name" placeholder="أدخل اسمك هنا" required autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label for="message">تفاصيل الشكوى</label>
+            <textarea id="message" rows="4" placeholder="اكتب موضوع الشكوى بالتفصيل..." required></textarea>
+        </div>
+
+        <button type="submit">تـــم - إرسال عبر الواتساب</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('complaintForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // -----------------------------------------------------------------
+        // ضع رقمك هنا بالصيغة الدولية (مثلاً لمصر ابدأ بـ 20 ثم رقمك بدون الصفر الأول)
+        // مثال: const myNumber = "201012345678";
+        const myNumber = "01282680987"; 
+        // -----------------------------------------------------------------
+
+        // جلب البيانات التي كتبها المستخدم
+        const name = document.getElementById('name').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        // ترتيب شكل الرسالة التي ستصلك على الواتساب
+        const text = `شكوى جديدة:%0A👤 الاسم: ${name}%0A📝 الشكوى: ${message}`;
+
+        // فتح رابط الواتساب المباشر برقمك والرسالة الجاهزة
+        const whatsappUrl = `https://wa.me/${myNumber}?text=${text}`;
+        
+        window.open(whatsappUrl, '_blank');
+    });
+</script>
+
+</body>
+</html>
